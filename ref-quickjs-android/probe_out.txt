@@ -1,0 +1,20 @@
+probe_chapters_shape: comic=1014509
+
+init: done=true error=Cannot read properties of null (reading 'length')
+
+loadInfo: done=true error=Cannot read properties of undefined (reading '0')
+
+== 1. 原始 slot.value（JS 侧） ==
+  [raw] typeof=undefined
+    value=undefined
+
+== 2. __plainValue(slot.value)（宿主 withPlainValue 的结果） ==
+PROBE ERROR evalmachine.<anonymous>:1
+globalThis.__plainValue(__pv_in)
+                        ^
+
+ReferenceError: __pv_in is not defined
+    at evalmachine.<anonymous>:1:25
+    at Script.runInContext (node:vm:149:12)
+    at Object.runInContext (node:vm:301:6)
+    at main (D:\VScode\26年\07-animeVenera\ref-quickjs-android\probe_chapters_shape.js:248:20)

@@ -1,0 +1,51 @@
+# ---------------------------------------------------------------------------------------------
+# 07-RosieManga — root ignore rules
+#
+# This is a single repo wrapping three layers:
+#   aniyomi/              Kotlin/Compose base (Apache-2.0), with its own .gitignore
+#   vendor/js-source/     init.js glue — MUST stay in sync with the other two copies
+#   ref-quickjs-android/  Node verification harness (verify_*.js / probe_*.js)
+#
+# Rule of thumb: anything regenerable by a build, by `./gradlew`, or by a probe run stays out.
+# ---------------------------------------------------------------------------------------------
+
+# ---- Gradle / Android build outputs (~1.2 GB of the workspace, all regenerable) ----
+build/
+*/build/
+**/build/
+.gradle/
+.kotlin/
+captures/
+release/
+*.apk
+*.aab
+*.ap_
+*.dex
+*.class
+
+# ---- Local machine configuration (absolute SDK paths live here) ----
+local.properties
+keystore.properties
+*.jks
+*.keystore
+
+# ---- Root-level build/dev logs (Gradle console dumps, tens of MB each) ----
+build_*.txt
+capture_*.txt
+
+# ---- Scratch scaffolding extracted from the QuickJS wrapper AAR ----
+.tmp_wrapper/
+
+# ---- Stray archives at the root (the checked-in one was a 14-byte truncated file) ----
+/*.tar.gz
+
+# ---- Assistant working notes (kept locally; the curated docs/ tree is what ships) ----
+.workbuddy/
+
+# ---- IDE / OS ----
+*.iml
+.idea/
+!.idea/icon.png
+out/
+.DS_Store
+Thumbs.db

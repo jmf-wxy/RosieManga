@@ -1,0 +1,43 @@
+probe_detail_invalid_data: title="乗馬女子の騎乗位"
+
+init: done=true
+
+search owner = member
+search.load: done=true
+  keys=["comics","maxPage"]
+  results=2
+   #0 id=544148  "乘马女子的骑乘位色情过头，发射不可避！ [ユウキHB] 乘马女子の骑乘位はエロすぎて发射不可避!(无修正)"
+   #1 id=201118  "骑马的女孩好想被她骑! [ユウキHB] 乘马女子の骑乘位はエロすぎて发射不可避! | [不咕鸟汉化组X禁漫天堂]"
+
+===== comic.loadInfo('544148') — "乘马女子的骑乘位色情过头，发射不可避！ [ユウキHB] 乘马女子の骑乘位はエロすぎて发射不可避!(无修正)" =====
+  done=true
+  keys=["title","subtitle","cover","description","tags","chapters","isFavorite","subId","thumbnails","recommend","commentCount","likesCount"]
+  chapters=Map(63)
+  本次请求数=1
+
+===== comic.loadInfo('201118') — "骑马的女孩好想被她骑! [ユウキHB] 乘马女子の骑乘位はエロすぎて发射不可避! | [不咕鸟汉化组X禁漫天堂]" =====
+  done=true
+  keys=["title","subtitle","cover","description","tags","chapters","isFavorite","subId","thumbnails","recommend","commentCount","likesCount"]
+  chapters=Map(63)
+  本次请求数=1
+
+=== 每个响应的 JSON 形状（BAD 就是 jm.js 抛 Invalid Data 的那一次） ===
+  NON_JSON  https://rup4a04-c02.tos-cn-hongkong.bytepluses.com/newsvr-2025.txt
+        head="﻿X+bnzYIcwF6C7Rd3T7njPDNH08zsH9zyqCrrjCr7qcnHb1LsmIZGIHtrNVR/GiraHE6OuhvrxEzwciVvhdU0I9OYcmWTxF1K7fLfcwkn7kMQg2DZ2qpE7dKGkqKCmQijaSUOswxL1/p9pSVe/vRYEzbB5pfcAB6Yz/zVVIendBJK629QiqQndRXM9bijtZuYJtKw3YB"
+  OK  (data=string)  https://www.cdnhjk.net/setting?…
+        keys=["code","data"] code=200 errorMsg=undefined
+  OK  (data=string)  https://www.cdnhjk.net/search?…
+        keys=["code","data"] code=200 errorMsg=undefined
+  OK  (data=string)  https://www.cdnhjk.net/album?…
+        keys=["code","data"] code=200 errorMsg=undefined
+  OK  (data=string)  https://www.cdnhjk.net/album?…
+        keys=["code","data"] code=200 errorMsg=undefined
+
+=== http 时间线 ===
+    1365ms  status=200   https://rup4a04-c02.tos-cn-hongkong.bytepluses.com/newsvr-2025.txt
+     657ms  status=200   https://www.cdnhjk.net/setting?…
+     256ms  status=200   https://www.cdnhjk.net/search?…
+     303ms  status=200   https://www.cdnhjk.net/album?…
+     662ms  status=200   https://www.cdnhjk.net/album?…
+
+RESULT: probe finished
