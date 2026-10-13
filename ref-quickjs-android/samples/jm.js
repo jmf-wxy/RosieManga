@@ -7,9 +7,18 @@ class JM extends ComicSource {
     // unique id of the source
     key = "jm"
 
-    version = "1.4.2"
+    // 1.4.3 — `apiDomain` / `imageStream` options now carry a `text` label (the host renders
+    //         `option.text ?: option.value`, so value-only rows showed a bare "1"/"2").
+    //         Bumped above the upstream 1.4.x series so a local install is never overwritten by
+    //         the upstream repo's copy (see JsSourceUpdater.isRepoNewer).
+    version = "1.4.3"
 
     minAppVersion = "1.5.0"
+
+    // Optional language tag, read by the host and used by the browse source list / language
+    // filter. Omitting it keeps the historical "all", which the UI renders as "多语言" — wrong
+    // for a Chinese-only source, so declare it explicitly.
+    lang = "zh"
 
     static jmVersion = "2.0.16"
 
@@ -1049,39 +1058,26 @@ class JM extends ComicSource {
         apiDomain: {
             title: "Api Domain",
             type: "select",
-            options: [
-                {
-                    value: '1',
-                },
-                {
-                    value: '2',
-                },
-                {
-                    value: '3',
-                },
-                {
-                    value: '4',
-                },
-            ],
+            // The value is a 1-based index into the *runtime* domain list (`baseUrl` reads
+            // `JM.apiDomains[index - 1]`), so the label must come from that same list.
+            // `fallbackServers` is the static seed that `init()` installs into `apiDomains`
+            // synchronously, before any network round-trip — which makes it the only domain list
+            // available while the `settings` object literal is being evaluated.
+            //
+            // Declaring `text` is not cosmetic: the host renders `option.text ?: option.value`,
+            // so a value-only option makes the config row show a bare "1"/"2" instead of the
+            // domain the user is actually picking.
+            options: JM.fallbackServers.map((domain, i) => ({ value: String(i + 1), text: domain })),
             default: "1",
         },
         imageStream: {
             title: "Image Stream",
             type: "select",
-            options: [
-                {
-                    value: '1',
-                },
-                {
-                    value: '2',
-                },
-                {
-                    value: '3',
-                },
-                {
-                    value: '4',
-                },
-            ],
+            // `app_img_shunt=<value>` is an opaque shunt id; the image host it resolves to is only
+            // known after `refreshImgUrl()` runs, so there is no real name to show here. A plain
+            // "Stream N" label is still better than a bare digit, because the host renders
+            // `option.text ?: option.value` and a value-only row is unreadable in the config UI.
+            options: [1, 2, 3, 4].map((n) => ({ value: String(n), text: `Stream ${n}` })),
             default: "1",
         },
         favoriteOrder: {

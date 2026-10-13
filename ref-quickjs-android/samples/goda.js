@@ -122,6 +122,10 @@ class Goda extends ComicSource {
 
   minAppVersion = "1.4.0"
 
+  // 可选语言标签，宿主读取后用于浏览页源列表与语言筛选。
+  // 不声明则保持历史上的 "all"，UI 会显示成「多语言」——对纯中文源是误导，故显式声明。
+  lang = "zh"
+
   // 更新地址
   url = "https://cdn.jsdelivr.net/gh/venera-app/venera-configs@main/goda.js"
 

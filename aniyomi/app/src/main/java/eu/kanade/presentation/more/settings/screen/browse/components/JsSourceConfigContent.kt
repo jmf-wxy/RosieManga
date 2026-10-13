@@ -209,6 +209,11 @@ private fun SourceConfigCard(
             if (info.version.isNotEmpty()) {
                 VersionChip(text = info.version, modifier = Modifier.padding(start = MaterialTheme.padding.small))
             }
+            // M4: only meaningful when the source actually declared a language — "all" is the
+            // default and would just be noise next to every card.
+            if (info.lang.isNotEmpty() && info.lang != "all") {
+                VersionChip(text = info.lang, modifier = Modifier.padding(start = MaterialTheme.padding.small))
+            }
             if (info.isLoggedIn) {
                 Text(
                     text = "已登录",

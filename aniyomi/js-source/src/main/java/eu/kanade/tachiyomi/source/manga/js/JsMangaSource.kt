@@ -47,7 +47,12 @@ class JsMangaSource(
     override val id: Long,
     /** Visible name; mutable so a source update can refresh metadata without re-registering. */
     override var name: String,
-    override val lang: String,
+    /**
+     * Language tag declared by the source (`lang` on the JS object), or `"all"` when it declares
+     * none. Mutable for the same reason as [name]: re-installing the same `key` refreshes the
+     * declaration without re-registering the source.
+     */
+    override var lang: String,
     /** Venera `key`; addresses the JS object `ComicSource.sources.<key>`. */
     val key: String,
     private val engine: JsEngine,

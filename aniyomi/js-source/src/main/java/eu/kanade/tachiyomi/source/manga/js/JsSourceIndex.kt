@@ -91,6 +91,12 @@ data class JsSourceInfo(
     val key: String,
     val name: String,
     val version: String,
+    /**
+     * Language tag the source declared (`lang` on the JS object), `"all"` when it declared none.
+     * Kept on the info record so the management UI can show it; it does not change where the
+     * source appears in the browse list (that is [eu.kanade.tachiyomi.source.manga.js.JsMangaSource.lang]).
+     */
+    val lang: String = "all",
     val fileName: String?,
     val isInstalled: Boolean,
     /** `true` when a newer `version` is available in the index. */

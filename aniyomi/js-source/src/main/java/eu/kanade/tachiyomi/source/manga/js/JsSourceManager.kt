@@ -368,6 +368,17 @@ object JsSourceManager {
         val name = e.evalBlocking("this['__temp'].name")?.toString() ?: return null
         val key = e.evalBlocking("this['__temp'].key")?.toString() ?: return null
         val version = e.evalBlocking("this['__temp'].version")?.toString().orEmpty()
+        // M4: an optional `lang` declaration on the source object (a language tag such as "zh",
+        // "en", "ja"). Sources that do not declare one keep the historical "all", which the browse
+        // language filter treats as language-agnostic — so an unchanged source stays exactly where
+        // it was, and only a source that opts in moves into its language bucket.
+        //
+        // The `undefined` / `null` guards are not paranoia: an absent JS property can marshal
+        // across the QuickJS bridge as the literal string "undefined", which would otherwise be
+        // stored as the source's language.
+        val lang = e.evalBlocking("this['__temp'].lang")?.toString()
+            ?.takeIf { it.isNotBlank() && it != "undefined" && it != "null" }
+            ?: "all"
         e.evalBlocking("ComicSource.sources['$key'] = this['__temp'];")
 
         file?.let { keyToFile[key] = it }
@@ -379,13 +390,14 @@ object JsSourceManager {
             // Already registered (startup double-load or re-install of the same key): refresh meta.
             it.version = version
             it.name = name
+            it.lang = lang
             return it
         }
 
         val source = JsMangaSource(
             id = JsMangaSource.keyToId(key),
             name = name,
-            lang = "all", // TODO(M4): expose a `lang` field on the JS side
+            lang = lang,
             key = key,
             engine = e,
             version = version,
@@ -404,6 +416,7 @@ object JsSourceManager {
                     key = it.key,
                     name = it.name,
                     version = it.version,
+                    lang = it.lang,
                     fileName = keyToFile[it.key]?.name,
                     isInstalled = true,
                     isLoggedIn = isLogged(it.key),
@@ -1143,9 +1156,15 @@ private class MiniJson(private val src: String) {
             '{' -> parseObject()
             '[' -> parseArray()
             '"' -> parseString()
-            't' -> "true".also { pos += 4 }
-            'f' -> "false".also { pos += 4 }
-            'n' -> "null".also { pos += 4 }
+            // NOTE: `true`/`false`/`null` MUST decode to their real types. They used to come back as
+            // the strings "true"/"false"/"null", which broke a `switch` setting two ways: the config
+            // UI does `value as? Boolean` (a String fails the cast → the row silently reverted to the
+            // declared default after every restart), and the JS side saw the *truthy* string "false"
+            // for a switch the user had turned OFF. The `.data` format is unchanged — booleans were
+            // always written unquoted — so existing files decode correctly with this fix.
+            't' -> true.also { pos += 4 }
+            'f' -> false.also { pos += 4 }
+            'n' -> null.also { pos += 4 }
             else -> parseNumber()
         }
     }
