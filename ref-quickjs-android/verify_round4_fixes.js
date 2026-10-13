@@ -14,7 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const vm = require('vm');
 
-const jmSource = fs.readFileSync(path.join(__dirname, 'samples', 'jm.js'), 'utf8');
+const jmSource = fs.readFileSync(path.join(__dirname, '..', 'js-sources', 'jm.js'), 'utf8');
 const initJs = fs.readFileSync(path.join(__dirname, 'samples', 'init.js'), 'utf8');
 
 // `jm.js` line 76 (`getApiHeaders`) calls `this.dailyCheckIn(true)` WITHOUT awaiting or catching it,

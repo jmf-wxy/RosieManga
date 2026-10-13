@@ -9,7 +9,7 @@
  *
  * ### 为什么存在
  *
- * jm.js 的搜索长这样（samples/jm.js:641）：
+ * jm.js 的搜索长这样（js-sources/jm.js:641）：
  *
  *     load: async (keyword, options, page) => {
  *         let url = `${this.baseUrl}/search?search_query=${keyword}&o=${options[0]}`

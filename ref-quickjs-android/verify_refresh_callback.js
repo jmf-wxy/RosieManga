@@ -17,7 +17,7 @@
 const fs = require('fs');
 
 const path = require('path');
-const jmSource = fs.readFileSync(path.join(__dirname, 'samples', 'jm.js'), 'utf8');
+const jmSource = fs.readFileSync(path.join(__dirname, '..', 'js-sources', 'jm.js'), 'utf8');
 
 // --- Simulate the bridge ------------------------------------------------------
 const sent = [];

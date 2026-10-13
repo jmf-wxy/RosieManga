@@ -68,7 +68,7 @@ const vm = require('vm');
 const crypto = require('crypto');
 
 const initJs = fs.readFileSync(path.join(__dirname, 'samples', 'init.js'), 'utf8');
-const jmJs = fs.readFileSync(path.join(__dirname, 'samples', 'jm.js'), 'utf8');
+const jmJs = fs.readFileSync(path.join(__dirname, '..', 'js-sources', 'jm.js'), 'utf8');
 
 let pass = 0, fail = 0;
 function check(label, ok, detail) {
@@ -483,7 +483,7 @@ async function evalSourceNew(ctx, expr) {
 // --- 用例 ---------------------------------------------------------------------------------------
 
 (async () => {
-  console.log('STRAY REJECTION — 真 init.js + 真 jm.js（samples/jm.js 与用户备份里的源逐字节相同）\n');
+  console.log('STRAY REJECTION — 真 init.js + 真 jm.js（js-sources/jm.js 与用户备份里的源逐字节相同）\n');
 
   // -------------------------------------------------------------------------------------------
   section('1. 反向对照 — 修复前必须复现真机那条 `timed out in ...`');

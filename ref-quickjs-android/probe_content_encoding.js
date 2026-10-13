@@ -42,7 +42,7 @@ const crypto = require('crypto');
 const https = require('https');
 const zlib = require('zlib');
 
-// jm.js constants (sampled from the live source; see `samples/jm.js`).
+// jm.js constants (sampled from the live source; see `js-sources/jm.js`).
 const API_HOST = process.argv[2] || 'www.cdntwice.org';
 const API_PATH = process.argv[3] || '/setting?app_img_shunt=1&express=';
 const JM_AUTH_KEY = '18comicAPPContent';

@@ -28,7 +28,7 @@ const path = require('path');
 const vm = require('vm');
 
 const initJs = fs.readFileSync(path.join(__dirname, 'samples', 'init.js'), 'utf8');
-const godaJs = fs.readFileSync(path.join(__dirname, 'samples', 'goda.js'), 'utf8');
+const godaJs = fs.readFileSync(path.join(__dirname, '..', 'js-sources', 'goda.js'), 'utf8');
 const REAL_HOME_HTML = fs.readFileSync(path.join(__dirname, 'samples', 'goda_home.html'), 'utf8');
 // 2026-10 改版详情页真抓回放（52KB）：
 //   * data-mid 从 #mangachapters 迁移到 #bookmarkData（书签按钮容器），data-mid="6"

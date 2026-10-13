@@ -46,7 +46,7 @@ const vm = require('vm');
 const { makeHtmlBridge } = require('./lib_html_bridge_mock.js');
 
 const initJs = fs.readFileSync(path.join(__dirname, 'samples', 'init.js'), 'utf8');
-const godaJs = fs.readFileSync(path.join(__dirname, 'samples', 'goda.js'), 'utf8');
+const godaJs = fs.readFileSync(path.join(__dirname, '..', 'js-sources', 'goda.js'), 'utf8');
 
 function sample(name) {
   return fs.readFileSync(path.join(__dirname, 'samples', name), 'utf8');

@@ -28,7 +28,7 @@ const vm = require('vm');
 const crypto = require('crypto');
 
 const initJs = fs.readFileSync(path.join(__dirname, 'samples', 'init.js'), 'utf8');
-const jmJs = fs.readFileSync(path.join(__dirname, 'samples', 'jm.js'), 'utf8');
+const jmJs = fs.readFileSync(path.join(__dirname, '..', 'js-sources', 'jm.js'), 'utf8');
 
 const DOMAIN_SECRET = 'diosfjckwpqpdfjkvnqQjsik';
 /** 与 verify_source_init_e2e.js 同款封装：域名端点回的是**加密信封**，不是明文 JSON。 */
