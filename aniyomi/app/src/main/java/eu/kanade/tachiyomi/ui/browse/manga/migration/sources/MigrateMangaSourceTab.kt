@@ -42,6 +42,18 @@ fun Screen.migrateMangaSourceTab(): TabContent {
                         ),
                     )
                 }
+                is MigrateMangaSourceScreenModel.Event.UrlsResolved -> {
+                    // Only meaningful for a cross-site migration: those are the entries whose url
+                    // had to be re-resolved in the target source. `unresolved` entries kept their
+                    // old url and may need a manual fix in the target source.
+                    context.toast(
+                        if (event.rewritten > 0) {
+                            "已重写 ${event.rewritten} 个链接；${event.unresolved} 个未在目标源匹配到，保留原链接"
+                        } else {
+                            "未能在目标源匹配到任何漫画，链接全部保留原样"
+                        },
+                    )
+                }
                 MigrateMangaSourceScreenModel.Event.MigrationFailed -> {
                     context.toast(MR.strings.internal_error)
                 }
